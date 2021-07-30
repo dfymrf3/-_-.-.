@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FindGold</title>
+</head>
+
+<body style="text-align: center;font-size: 40px ; background-image: url(https://kartinkin.com/uploads/posts/2021-04/1617582530_4-p-piratskii-fon-4.jpg); cursor: pointer;;">
+    <h1>Угадай где спрятаны сокровища</h1>
+    <img style="border: 5px solid gold;" src="https://pbs.twimg.com/profile_images/1301538788175499269/WoEO4UGD.jpg" alt="game" width="400px" height="400px" id="map">
+    <p id="distance"></p>
+    <a href="/">Вернуться</a>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script>
+        let getRandomNumber = function(size) {
+            return Math.floor(Math.random() * size);
+        };
+        let getDistance = function(event, target) {
+            let diffX = event.offsetX - target.x;
+            let diffY = event.offsetY - target.y;
+            return Math.sqrt((diffX * diffY) + (diffY * diffY));
+        }
+        let getDistanceHint = function(distance) {
+            if (distance < 10) {
+                return "Обожжешься!";
+            } else if (distance < 20) {
+                return "Очень горячо";
+            } else if (distance < 40) {
+                return "Горячо";
+            } else if (distance < 60) {
+                return "Теплее";
+            } else if (distance < 80) {
+                return "Тепло";
+            } else if (distance < 120) {
+                return "Прохладно";
+            } else if (distance < 160) {
+                return "Холодно";
+            } else if (distance < 220) {
+                return "Холоднее";
+            } else if (distance < 320) {
+                return "Очень холодно";
+            }
+        };
+        let width = 400;
+        let heigth = 400;
+        let clicks = 0;
+
+        let target = {
+            x: getRandomNumber(width),
+            y: getRandomNumber(heigth)
+        };
+
+        $("#map").click(function(event) {
+            clicks++;
+
+
+            let distance = getDistance(event, target);
+            let distanceHint = getDistanceHint(distance);
+            $("#distance").text(distanceHint);
+            if (distance < 8) {
+                alert("Молодец ты нашел сундук с золотом за " + clicks + " кликов");
+            }
+        });
+    </script>
+
+</body>
+
+</html>

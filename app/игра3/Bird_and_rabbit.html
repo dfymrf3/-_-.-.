@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to birds $ rabbits</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div id="goal">
+            <p class="hello">Загаданное число: <span class="number"></span></p>
+            <p>Осталось <span class="turns">10</span></p>
+        </div>
+        <div id="form">
+            <input type="text" id="player"><label for="player">Введите число</label>
+            <input type="button" name="ok" id="guess" value="ClickMe" onClick="guess()">
+        </div>
+    </div>
+    <div class="table">
+        <div class="turnsList">
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <script>
+        let getNum = function() {
+            number = [];
+
+            while (number.length < 4) {
+                let newNum = Math.floor(Math.random() * 10);
+                if (number.indexOf(newNum) < 0) {
+                    number.push(newNum);
+                }
+            }
+            return number;
+        };
+        let goal = herNum();
+        let guess = function() {
+            let playersNumber = document.querySelector('#player').value;
+            let arr = [];
+            for (let i = 0; i < 4; i++) {
+                let newUserArrElement = parentInt(playersNumber.substr(i, 1));
+                arr.push(newUserArrElement);
+            }
+
+            check(arr);
+        };
+        let check = function(par) {
+            let birds = 0;
+            let rabbit = 0;
+            let turns = parseInt(document.querySelector('.turns').innerHTML);
+
+            for (let i = 0; i < 4; i++) {
+                if (par[i]) == goal[i]) {
+                birds++;
+            } else if (goal.indexOf(par[i]) >= 0) {
+                rabbit++;
+            }
+        }
+        turns--;
+        document.querySelector('.turns').innerHTML;
+        if (turns == 0 || birds == 4) {
+            let status = 'loose';
+            if (birds == 4) {
+                status = 'win';
+            }
+            endGame();
+        }
+        writeTurn(par, birds, rabbits);
+        }
+        let writeTurn = function(par, birds, rabbits) {
+            let table = document.querySelector('.turnsList');
+            let newLine = document.createElement('p');
+            newLine.innerHTML = '<span class = "guessed">' + par + '
+            птицы: ' + birds +
+            'кролики: ' + rabbits;
+            table.appendChild(newLine)
+        };
+        let endGame = function(par, turns, status) {
+            document.querySelector('.number').innerHTML = goal;
+            alert('You' + sttaus + '\r\nЗагаданное число: ' + goal)
+        }
+    </script>
+</body>
+
+</html>
